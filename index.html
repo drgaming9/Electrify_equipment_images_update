@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Electrify — منصة عربية احترافية لتصميم وحساب أنظمة الطاقة الشمسية والأحمال والبطاريات والحمايات والتكلفة">
+  <meta name="author" content="محمد زاهدة">
+  <meta name="copyright" content="© 2026 Electrify. جميع الحقوق محفوظة.">
+  <meta name="application-name" content="Electrify">
+  <meta name="apple-mobile-web-app-title" content="Electrify">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Electrify — Solar System Designer</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="auth-loading app-locked">
+  <div class="app-bg" aria-hidden="true"></div>
+
+
+  <section id="authScreen" class="auth-screen no-print" aria-label="تسجيل الدخول إلى Electrify">
+    <div class="auth-orb auth-orb-one" aria-hidden="true"></div>
+    <div class="auth-orb auth-orb-two" aria-hidden="true"></div>
+    <div class="auth-shell">
+      <aside class="auth-visual">
+        <a class="auth-brand" href="#" aria-label="Electrify">
+          <span class="auth-brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path class="brand-ring" d="M24 3.5 41.8 13.8v20.4L24 44.5 6.2 34.2V13.8Z"/><path class="brand-bolt" d="M27.2 8.8 13.8 26h9.1l-2.1 13.2L34.7 21h-9.2Z"/></svg>
+          </span>
+          <span><strong>Electrify</strong><small>Solar Design Studio</small></span>
+        </a>
+        <div class="auth-visual-copy">
+          <span class="auth-kicker">SMART SOLAR ENGINEERING</span>
+          <h1>صمّم نظامك الشمسي بثقة واحتراف.</h1>
+          <p>احسب الأحمال والألواح والبطاريات، واختر إنفرتر Deye المناسب، واحفظ مشاريعك داخل مساحة محمية بحسابك.</p>
+          <div class="auth-feature-grid">
+            <article><b>01</b><span>حسابات فورية</span></article>
+            <article><b>02</b><span>اختيار Deye</span></article>
+            <article><b>03</b><span>تقارير جاهزة</span></article>
+          </div>
+        </div>
+        <footer>
+          <span>تم التطوير بواسطة: <strong>محمد زاهدة</strong></span>
+          <span>© 2026 Electrify. جميع الحقوق محفوظة.</span>
+        </footer>
+      </aside>
+
+      <main class="auth-card">
+        <div id="authLoading" class="auth-loading-state">
+          <span class="auth-spinner" aria-hidden="true"></span>
+          <strong>جارٍ التحقق من الجلسة…</strong>
+        </div>
+
+        <div id="firebaseSetup" class="firebase-setup hidden">
+          <span class="setup-icon">⚙</span>
+          <h2>يلزم ربط Firebase أولًا</h2>
+          <p>أدخل بيانات مشروع Firebase داخل ملف <code>firebase-config.js</code> ثم فعّل تسجيل Google والبريد الإلكتروني.</p>
+          <ol>
+            <li>أنشئ مشروع Firebase وأضف Web App.</li>
+            <li>انسخ كائن <b>firebaseConfig</b> إلى الملف.</li>
+            <li>فعّل Google وEmail/Password من Authentication.</li>
+          </ol>
+          <small>لا تضع أي Service Account أو مفتاح خادم سري داخل الموقع.</small>
+        </div>
+
+        <div id="authForms" class="auth-forms hidden">
+          <header class="auth-card-head">
+            <span class="mobile-auth-logo">ϟ</span>
+            <div>
+              <span class="auth-kicker">WELCOME TO ELECTRIFY</span>
+              <h2 id="authTitle">تسجيل الدخول</h2>
+              <p id="authSubtitle">ادخل إلى مشاريعك وأدوات التصميم.</p>
+            </div>
+          </header>
+
+          <div class="auth-tabs" role="tablist" aria-label="الدخول والتسجيل">
+            <button id="loginTab" class="active" type="button" role="tab" aria-selected="true">تسجيل الدخول</button>
+            <button id="registerTab" type="button" role="tab" aria-selected="false">إنشاء حساب</button>
+          </div>
+
+          <button id="googleSignInBtn" class="google-btn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.23c0-.71-.06-1.4-.18-2.06H12v3.9h5.38a4.6 4.6 0 0 1-2 3.02v2.53h3.24c1.9-1.75 2.98-4.34 2.98-7.39Z"/><path fill="#34A853" d="M12 22c2.7 0 4.97-.9 6.62-2.38l-3.24-2.53c-.9.6-2.05.96-3.38.96-2.61 0-4.82-1.77-5.61-4.14H3.04v2.61A10 10 0 0 0 12 22Z"/><path fill="#FBBC05" d="M6.39 13.91A6 6 0 0 1 6.08 12c0-.66.11-1.3.31-1.91V7.48H3.04A10 10 0 0 0 2 12c0 1.61.38 3.14 1.04 4.52l3.35-2.61Z"/><path fill="#EA4335" d="M12 5.95c1.47 0 2.79.51 3.83 1.5l2.87-2.87A9.63 9.63 0 0 0 12 2a10 10 0 0 0-8.96 5.48l3.35 2.61C7.18 7.72 9.39 5.95 12 5.95Z"/></svg>
+            <span>المتابعة باستخدام Google</span>
+          </button>
+
+          <div class="auth-divider"><span>أو باستخدام البريد الإلكتروني</span></div>
+
+          <form id="emailAuthForm" novalidate>
+            <label id="displayNameWrap" class="hidden">الاسم الكامل
+              <input id="authDisplayName" type="text" autocomplete="name" placeholder="مثال: محمد أحمد">
+            </label>
+            <label>البريد الإلكتروني
+              <input id="authEmail" type="email" autocomplete="email" placeholder="name@example.com" required>
+            </label>
+            <label>كلمة المرور
+              <span class="password-field">
+                <input id="authPassword" type="password" autocomplete="current-password" placeholder="8 أحرف أو أكثر" minlength="8" required>
+                <button id="togglePassword" type="button" aria-label="إظهار كلمة المرور">إظهار</button>
+              </span>
+            </label>
+            <label id="confirmPasswordWrap" class="hidden">تأكيد كلمة المرور
+              <input id="authPasswordConfirm" type="password" autocomplete="new-password" placeholder="أعد كتابة كلمة المرور" minlength="8">
+            </label>
+            <div id="loginOptions" class="auth-options">
+              <label class="remember-row"><input id="rememberMe" type="checkbox" checked><span>تذكرني على هذا الجهاز</span></label>
+              <button id="forgotPasswordBtn" class="auth-link" type="button">نسيت كلمة المرور؟</button>
+            </div>
+            <div id="authMessage" class="auth-message hidden" role="alert"></div>
+            <button id="emailSubmitBtn" class="auth-submit" type="submit"><span>تسجيل الدخول</span><i class="button-spinner" aria-hidden="true"></i></button>
+          </form>
+
+          <p class="auth-legal">بالمتابعة، أنت تقر بأن بيانات الحساب تُستخدم لتسجيل الدخول، وأن نتائج التصميم أولية وتحتاج مراجعة هندسية قبل التنفيذ.</p>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <header class="topbar no-print">
+    <a class="brand" href="#top" aria-label="العودة إلى البداية">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img"><path class="brand-ring" d="M24 3.5 41.8 13.8v20.4L24 44.5 6.2 34.2V13.8Z"/><path class="brand-bolt" d="M27.2 8.8 13.8 26h9.1l-2.1 13.2L34.7 21h-9.2Z"/></svg>
+      </span>
+      <span class="brand-copy"><strong>Electrify</strong><small>Solar Design Studio</small></span>
+      <span class="brand-edition">PRO</span>
+    </a>
+    <div class="top-actions">
+      <button id="installBtn" class="btn ghost hidden" type="button">تثبيت التطبيق</button>
+      <div id="userMenu" class="user-menu">
+        <button id="userMenuBtn" class="user-menu-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="فتح قائمة الحساب">
+          <img id="userAvatar" alt="" class="user-avatar">
+          <span><small class="user-greeting">مرحبًا بك</small><strong id="userName">المستخدم</strong></span>
+          <b aria-hidden="true">⌄</b>
+        </button>
+        <div id="userDropdown" class="user-dropdown hidden">
+          <div class="dropdown-profile">
+            <img id="dropdownUserAvatar" alt="" class="dropdown-user-avatar">
+            <span><strong id="dropdownUserName">المستخدم</strong><small id="dropdownUserEmail"></small></span>
+          </div>
+          <button id="accountSettingsBtn" class="menu-action" type="button"><span aria-hidden="true">⚙</span> إعدادات الحساب</button>
+          <button id="passwordSettingsBtn" class="menu-action" type="button"><span aria-hidden="true">🔒</span> تغيير كلمة المرور</button>
+          <button id="logoutBtn" class="menu-danger" type="button"><span aria-hidden="true">↪</span> تسجيل الخروج</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="top" class="layout">
+    <aside class="sidebar no-print">
+      <nav class="nav-card" aria-label="أقسام المصمم">
+        <a href="#project" class="active"><span>01</span>المشروع</a>
+        <a href="#loads"><span>02</span>الأحمال</a>
+        <a href="#equipment"><span>03</span>المعدات</a>
+        <a href="#results"><span>04</span>النتائج</a>
+        <a href="#diagram"><span>05</span>التوصيل</a>
+        <a href="#costs"><span>06</span>التكلفة</a>
+      </nav>
+      <div class="sidebar-card">
+        <strong>وضع الحساب</strong>
+        <p>تتحدّث النتائج مباشرةً بعد كل تعديل.</p>
+        <label class="switch-row">
+          <input id="autoCalculate" type="checkbox" checked>
+          <span class="switch"></span>
+          <span>حساب تلقائي</span>
+        </label>
+      </div>
+      <div class="sidebar-card warning-card">
+        <strong>تنبيه هندسي</strong>
+        <p>النتائج تصميم أولي. يجب اعتماد الكابلات والحمايات والتوصيل النهائي من مهندس مرخّص وفق كود بلد المشروع.</p>
+      </div>
+      <div class="sidebar-card creator-card">
+        <span class="creator-label">CREATED BY</span>
+        <strong>محمد زاهدة</strong>
+        <p>تصميم وتطوير منصة Electrify</p>
+        <span class="creator-signature">Electrify © 2026</span>
+      </div>
+      <button id="resetBtn" class="btn danger full" type="button">مشروع جديد</button>
+    </aside>
+
+    <main class="content">
+      <section class="hero panel no-print">
+        <div>
+          <span class="kicker">SOLAR SYSTEM DESIGN · PRO</span>
+          <h1>هندسة الطاقة الشمسية، بواجهة تليق بالمحترفين</h1>
+          <p>حساب كافة الأحمال ثم اختيار الألواح والإنفرتر والحمايات اللازمة وحساب التكلفة الإجمالية.</p>
+        </div>
+        <div class="hero-meter">
+          <span>اكتمال بيانات المشروع</span>
+          <strong id="completionText">0%</strong>
+          <div class="progress"><i id="completionBar" style="width:0%"></i></div>
+        </div>
+      </section>
+
+      <section id="project" class="panel section-card">
+        <div class="section-head">
+          <div><span class="section-number">01</span><div><h2>بيانات المشروع</h2><p>الإعدادات العامة التي تعتمد عليها جميع الحسابات.</p></div></div>
+          <span class="pill">إلزامي</span>
+        </div>
+        <div class="form-grid three">
+          <label>اسم المشروع<input id="projectName" value="منزل سكني" autocomplete="off"></label>
+          <label>اسم العميل<input id="clientName" placeholder="اختياري" autocomplete="off"></label>
+          <label>الموقع<input id="location" value="فلسطين" autocomplete="off"></label>
+          <label>نوع النظام<select id="systemType"><option value="hybrid" selected>هجين Hybrid</option><option value="offgrid">منفصل Off-Grid</option><option value="ongrid">مرتبط بالشبكة On-Grid</option></select></label>
+          <label>العملة<select id="currency"><option value="₪" selected>شيكل ₪</option><option value="$">دولار $</option><option value="د.أ">دينار د.أ</option><option value="ر.س">ريال ر.س</option><option value="€">يورو €</option></select></label>
+          <label>نظام الخرج<select id="phase"><option value="single" selected>أحادي الطور</option><option value="three">ثلاثي الطور</option></select></label>
+          <label>جهد الخرج AC<select id="acVoltage"><option value="230" selected>230 V</option><option value="220">220 V</option><option value="120">120 V</option><option value="400">400 V</option></select></label>
+          <label>ساعات الشمس الفعالة<input id="psh" type="number" min="1" max="10" step="0.1" value="5.5"><small>متوسط ساعات الذروة الشمسية يوميًا</small></label>
+          <label>خسائر النظام<div class="suffix"><input id="losses" type="number" min="0" max="60" step="1" value="20"><span>%</span></div></label>
+          <label>هامش الإنفرتر<div class="suffix"><input id="inverterMargin" type="number" min="0" max="100" step="1" value="25"><span>%</span></div></label>
+          <label class="battery-only">أيام الاستقلالية<input id="autonomyDays" type="number" min="0.25" max="10" step="0.25" value="1"></label>
+          <label class="battery-only">عمق التفريغ المسموح<div class="suffix"><input id="dod" type="number" min="10" max="100" step="1" value="80"><span>%</span></div></label>
+        </div>
+      </section>
+
+      <section id="loads" class="panel section-card">
+        <div class="section-head">
+          <div><span class="section-number">02</span><div><h2>الأجهزة والأحمال</h2><p>أضف كل جهاز وحدد عدد ساعات التشغيل والتزامن ومعامل الإقلاع.</p></div></div>
+          <button id="addLoadBtn" class="btn secondary no-print" type="button">+ إضافة جهاز</button>
+        </div>
+        <div class="table-scroll">
+          <table class="loads-table">
+            <thead><tr><th>الجهاز</th><th>العدد</th><th>القدرة W</th><th>ساعات/يوم</th><th>التزامن % <span class="th-help" title="النسبة المتوقعة من أجهزة الصف التي تعمل مع بقية الأحمال في وقت الذروة">؟</span></th><th>الإقلاع × <span class="th-help" title="معامل الزيادة اللحظية عند بدء المحركات أو الضواغط، وليس استهلاك التشغيل العادي">؟</span></th><th>kWh/يوم</th><th class="no-print">حذف</th></tr></thead>
+            <tbody id="loadsBody"></tbody>
+          </table>
+        </div>
+        <div class="load-factors-guide no-print">
+          <div class="factor-definition">
+            <span class="factor-icon">%</span>
+            <div><strong>التزامن</strong><p>نسبة الحمل المتوقع أن يعمل في نفس لحظة الذروة. للجهاز الواحد المهم استخدم غالبًا 100%، وللمجموعات مثل الإنارة يمكن خفضها حسب الاستخدام الفعلي.</p></div>
+          </div>
+          <div class="factor-definition">
+            <span class="factor-icon">×</span>
+            <div><strong>معامل الإقلاع</strong><p>الزيادة اللحظية عند بدء الضاغط أو المحرك. استخدم بيانات الملصق أو الشركة عند توفرها؛ القيم أدناه افتراضات أولية قابلة للتعديل.</p></div>
+          </div>
+          <div class="factor-presets">
+            <span>قيم ابتدائية مقترحة:</span>
+            <b>LED: 80% / ×1</b>
+            <b>ثلاجة عادية: 100% / ×4</b>
+            <b>تلفاز: 80% / ×1.1</b>
+            <b>غسالة: 50% / ×2.5</b>
+            <b>مكيف عادي: 100% / ×3.5</b>
+            <b>مكيف Inverter: 100% / ×1.5</b>
+          </div>
+        </div>
+        <div class="inline-stats">
+          <article><span>الطاقة اليومية</span><strong id="dailyEnergyInline">0.00 kWh</strong></article>
+          <article><span>الحمل المتصل</span><strong id="connectedLoadInline">0.00 kW</strong></article>
+          <article><span>الحمل المتزامن</span><strong id="peakLoadInline">0.00 kW</strong></article>
+          <article><span>ذروة الإقلاع</span><strong id="surgeLoadInline">0.00 kW</strong></article>
+        </div>
+        <div class="chart-card">
+          <div class="subhead"><div><h3>توزيع الاستهلاك اليومي</h3><p>مقارنة بين الأجهزة الأعلى استهلاكًا.</p></div><span>kWh/يوم</span></div>
+          <div id="energyChart" class="bar-chart"></div>
+        </div>
+      </section>
+
+      <section id="equipment" class="panel section-card">
+        <div class="section-head">
+          <div><span class="section-number">03</span><div><h2>مواصفات المعدات</h2><p>أدخل بيانات المعدات المتاحة لديك للحصول على نتيجة أقرب للواقع.</p></div></div>
+          <span class="pill neutral">قابل للتعديل</span>
+        </div>
+        <div class="equipment-grid">
+          <article class="equipment-card panel-selector-card">
+            <header><span class="equip-icon sun">☀</span><div><h3>اختيار اللوح الشمسي</h3><p>اختر أحد لوحي Jinko المعتمدين في Electrify</p></div></header>
+            <div class="form-grid two">
+              <label class="span-two">اللوح المتوفر في السوق
+                <select id="panelSelection">
+                  <option value="jinko-735" selected>Jinko Tiger Neo JKM735N-66HL5-BDV — 735 W</option>
+                  <option value="jinko-650">Jinko Tiger Neo JKM650N-66HL4M-BDV — 650 W</option>
+                </select>
+              </label>
+              <label>سعر اللوح الواحد<input id="panelPrice" type="number" min="0" step="1" value="650"></label>
+              <div class="panel-datasheet-action">
+                <span>الداتا شيت الرسمية</span>
+                <a id="panelDatasheetLink" class="datasheet-link" href="assets/datasheets/JKM710-735N-66HL5-BDV-Z3-EU.pdf" target="_blank" rel="noopener">عرض PDF</a>
+              </div>
+            </div>
+            <dl class="panel-spec-summary" aria-label="مواصفات اللوح المختار">
+              <div><dt>الموديل</dt><dd id="panelSpecModel">JKM735N-66HL5-BDV</dd></div>
+              <div><dt>القدرة عند STC</dt><dd id="panelSpecPower">735 W</dd></div>
+              <div><dt>Vmp / Imp</dt><dd id="panelSpecVmpImp">41.23 V / 17.83 A</dd></div>
+              <div><dt>Voc / Isc</dt><dd id="panelSpecVocIsc">49.52 V / 18.88 A</dd></div>
+              <div><dt>الكفاءة</dt><dd id="panelSpecEfficiency">23.66%</dd></div>
+              <div><dt>الأبعاد والوزن</dt><dd id="panelSpecDimensions">2384×1303×33 mm — 37.5 kg</dd></div>
+            </dl>
+            <input id="panelPower" type="hidden" value="735">
+            <input id="panelVmp" type="hidden" value="41.23">
+            <input id="panelVoc" type="hidden" value="49.52">
+            <input id="panelImp" type="hidden" value="17.83">
+            <input id="panelIsc" type="hidden" value="18.88">
+            <p class="catalog-note">تستخدم الحسابات قيم STC للموديل المحدد فقط. يبقى سعر اللوح قابلًا للتعديل حسب عرض المورد.</p>
+          </article>
+
+          <article class="equipment-card inverter-selector-card">
+            <header><span class="equip-icon inverter">⌁</span><div><h3>اختيار الإنفرتر</h3><p>الموقع يقترح القدرة والموديل، وأنت تختار المتوفر في السوق</p></div></header>
+            <div class="inverter-recommendation">
+              <div><span>القدرة المستمرة المطلوبة</span><strong id="requiredInverterInline">0.00 kW</strong></div>
+              <div><span>اقتراح Electrify</span><strong id="recommendedInverterInline">—</strong></div>
+            </div>
+            <div class="product-preview inverter-preview">
+              <div class="product-image-frame"><img id="inverterProductImage" src="assets/inverter-deye-single.webp" alt="صورة إنفرتر Deye المختار"></div>
+              <div class="product-preview-copy">
+                <span class="product-brand">Deye Hybrid Inverter</span>
+                <strong id="inverterProductModel">سيتم عرض الموديل المختار هنا</strong>
+                <small id="inverterProductMeta">صورة السلسلة تتغير تلقائيًا حسب الموديل والطور.</small>
+              </div>
+            </div>
+            <div class="form-grid two">
+              <label class="span-two">الإنفرتر المختار من السوق
+                <select id="inverterSelection"></select>
+                <small>تظهر موديلات Deye المناسبة لنظام الخرج المختار، ويمكن اختيار موديل مخصص.</small>
+              </label>
+              <label id="customInverterNameWrap" class="span-two hidden">اسم الموديل المخصص<input id="customInverterName" value="إنفرتر مخصص" autocomplete="off"></label>
+              <label>القدرة الاسمية W<input id="inverterRatedW" type="number" min="100" step="100" value="5000"></label>
+              <label>قدرة الذروة W<input id="inverterPeakW" type="number" min="100" step="100" value="10000"></label>
+              <label>أقصى قدرة ألواح W<input id="maxPvPower" type="number" min="100" step="100" value="8000"></label>
+              <label>أقصى جهد DC<input id="maxDcVoltage" type="number" min="50" step="1" value="500"></label>
+              <label>أدنى جهد MPPT<input id="mpptMinV" type="number" min="0" step="1" value="150"></label>
+              <label>أقصى جهد MPPT<input id="mpptMaxV" type="number" min="0" step="1" value="425"></label>
+              <label>تيار تشغيل MPPT<input id="mpptCurrentPattern" type="text" inputmode="decimal" value="13+13"><small>مثال: 13+13 أو 26+13</small></label>
+              <label>عدد السلاسل لكل MPPT<input id="mpptStringPattern" type="text" inputmode="numeric" value="1+1"><small>مثال: 1+1 أو 2+1</small></label>
+              <label>كفاءة الإنفرتر<div class="suffix"><input id="inverterEff" type="number" min="50" max="100" step="0.1" value="97.6"><span>%</span></div></label>
+              <label>سعر الإنفرتر<input id="inverterPrice" type="number" min="0" step="1" value="5200"></label>
+            </div>
+            <div id="inverterCompatibility" class="compatibility-box neutral">اختر الموديل أو اترك الاختيار التلقائي.</div>
+            <p class="catalog-note">بيانات كتالوج Deye مضمّنة للمقارنة الأولية. يجب مطابقة رقم الموديل والداتا شيت مع القطعة المتوفرة قبل الشراء.</p>
+          </article>
+
+          <article class="equipment-card battery-only battery-selector-card">
+            <header><span class="equip-icon battery">▣</span><div><h3>بطاريات Deye الليثيوم</h3><p>اختر وحدة 5.12 kWh أو 10.24 kWh ويحسب الموقع عدد الوحدات المطلوبة</p></div></header>
+            <div class="product-preview battery-preview">
+              <div class="product-image-frame"><img id="batteryProductImage" src="assets/battery-deye-se-g5-1-pro-b.webp" alt="صورة بطارية Deye المختارة"></div>
+              <div class="product-preview-copy">
+                <span class="product-brand">Deye LiFePO₄</span>
+                <strong id="batteryProductModel">SE-G5.1 Pro-B</strong>
+                <small id="batteryProductMeta">5.12 kWh — 51.2 V — 100 Ah</small>
+              </div>
+            </div>
+            <div class="form-grid two">
+              <label class="span-two">موديل البطارية
+                <select id="batterySelection">
+                  <option value="deye-se-g5-1-pro-b" selected>Deye SE-G5.1 Pro-B — 5.12 kWh</option>
+                  <option value="deye-se-g10-2">Deye SE-G10.2 — 10.24 kWh</option>
+                </select>
+                <small>تتصل الوحدات على التوازي مع إنفرترات Deye منخفضة الجهد 40–60V.</small>
+              </label>
+              <label>سعر الوحدة<input id="batteryPrice" type="number" min="0" step="1" value="5200"></label>
+              <label>كفاءة البطارية<div class="suffix"><input id="batteryEff" type="number" min="50" max="100" step="1" value="95"><span>%</span></div></label>
+            </div>
+            <dl class="catalog-specs battery-specs">
+              <div><dt>الموديل</dt><dd id="batterySpecModel">SE-G5.1 Pro-B</dd></div>
+              <div><dt>الطاقة الاسمية</dt><dd id="batterySpecEnergy">5.12 kWh</dd></div>
+              <div><dt>الطاقة القابلة للاستخدام</dt><dd id="batterySpecUsable">4.60 kWh</dd></div>
+              <div><dt>الجهد / السعة</dt><dd id="batterySpecVoltageAh">51.2 V / 100 Ah</dd></div>
+              <div><dt>عمق التفريغ الموصى به</dt><dd id="batterySpecDod">90%</dd></div>
+              <div><dt>الأبعاد والوزن</dt><dd id="batterySpecDimensions">440×133×540 mm — 45 kg</dd></div>
+            </dl>
+            <input id="batteryVoltage" type="hidden" value="51.2">
+            <input id="batteryAh" type="hidden" value="100">
+            <input id="bankVoltage" type="hidden" value="51.2">
+            <input id="batteryType" type="hidden" value="lithium">
+            <p class="catalog-note">سعر الوحدة قابل للتعديل. عدد البطاريات = الطاقة الاسمية المطلوبة ÷ طاقة الوحدة، مع التقريب للأعلى.</p>
+          </article>
+
+          <article class="equipment-card">
+            <header><span class="equip-icon cable">↯</span><div><h3>الكابلات والحماية</h3><p>أطوال المسارات وهبوط الجهد</p></div></header>
+            <div class="form-grid two">
+              <label>طول كابل الألواح m<input id="pvCableLength" type="number" min="1" step="1" value="20"></label>
+              <label>طول كابل البطارية m<input id="batteryCableLength" type="number" min="0.5" step="0.5" value="2"></label>
+              <label>طول خرج AC m<input id="acCableLength" type="number" min="1" step="1" value="15"></label>
+              <label>هبوط جهد DC<div class="suffix"><input id="dcDrop" type="number" min="0.5" max="10" step="0.5" value="2"><span>%</span></div></label>
+              <label>هبوط جهد AC<div class="suffix"><input id="acDrop" type="number" min="0.5" max="10" step="0.5" value="3"><span>%</span></div></label>
+              <label>مادة الموصل<select id="conductor"><option value="copper" selected>نحاس</option><option value="aluminum">ألمنيوم</option></select></label>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="results" class="panel section-card results-section">
+        <div class="section-head">
+          <div><span class="section-number">04</span><div><h2>نتائج التصميم</h2><p>ملخص النظام المقترح بناءً على البيانات المدخلة.</p></div></div>
+          <button id="calculateBtn" class="btn primary no-print" type="button">إعادة الحساب</button>
+        </div>
+        <div id="alerts" class="alerts"></div>
+        <div class="result-grid">
+          <article class="result-card highlight"><span>الاستهلاك اليومي</span><strong id="dailyEnergyResult">0.00</strong><small>kWh / يوم</small></article>
+          <article class="result-card"><span>قدرة المصفوفة</span><strong id="pvPowerResult">0.00</strong><small>kWp</small></article>
+          <article class="result-card"><span>عدد الألواح</span><strong id="panelCountResult">0</strong><small>حسب Pdc(STC) ÷ Ppv مع التقريب للأعلى</small></article>
+          <article class="result-card"><span>القدرة الدنيا للإنفرتر</span><strong id="inverterNeedResult">0.00</strong><small>kW حمل مستمر مع الهامش</small></article>
+          <article class="result-card model-result"><span>الإنفرتر المقترح</span><strong id="recommendedInverterResult">—</strong><small id="recommendedInverterPower">—</small></article>
+          <article class="result-card model-result"><span>الإنفرتر المختار</span><strong id="selectedInverterResult">—</strong><small id="inverterResult">0.00 kW</small></article>
+          <article class="result-card battery-only"><span>سعة البطاريات الاسمية</span><strong id="batteryEnergyResult">0.00</strong><small>kWh</small></article>
+          <article class="result-card battery-only"><span>عدد البطاريات</span><strong id="batteryCountResult">0</strong><small>وحدة</small></article>
+          <article class="result-card battery-only"><span>مدة التشغيل التقديرية</span><strong id="runtimeResult">0.00</strong><small>ساعة عند الحمل المتزامن</small></article>
+          <article class="result-card"><span>تيار منظم الشحن</span><strong id="controllerResult">0</strong><small>A إجمالي</small></article>
+        </div>
+
+        <article class="calculation-explainer">
+          <header><div><h3>كيف يحسب Electrify عدد الألواح؟</h3><p>العدد النهائي يعتمد على قدرة المصفوفة المطلوبة عند STC وقدرة اللوح المختار، ثم يتم فحص التوصيل مع MPPT دون تغيير العدد.</p></div><span id="panelDecisionBadge">Pdc(STC) ÷ Ppv</span></header>
+          <div class="formula-steps">
+            <div><b>1</b><span>قدرة المصفوفة المطلوبة Pdc(STC)</span><strong id="pvFormulaResult">—</strong><small id="pvFormulaDetail">—</small></div>
+            <div><b>2</b><span>عدد الألواح N = Pdc(STC) ÷ Ppv</span><strong id="panelBaseResult">—</strong><small id="panelBaseDetail">—</small></div>
+            <div><b>3</b><span>فحص التوصيل مع MPPT</span><strong id="panelAdjustmentResult">—</strong><small id="panelAdjustmentDetail">—</small></div>
+          </div>
+        </article>
+
+        <div class="details-grid">
+          <article class="detail-card"><header><h3>تكوين الألواح</h3><span>PV Array</span></header><dl><div><dt>التوصيل المقترح</dt><dd id="stringConfig">—</dd></div><div><dt>توزيع السلاسل على MPPT</dt><dd id="mpptDistribution">—</dd></div><div><dt>جهد التشغيل للسلسلة</dt><dd id="stringVmp">—</dd></div><div><dt>جهد الدارة المفتوحة المصحح</dt><dd id="stringVoc">—</dd></div><div><dt>تيار المصفوفة التصميمي</dt><dd id="arrayCurrent">—</dd></div></dl></article>
+          <article class="detail-card"><header><h3>مطابقة الإنفرتر</h3><span>Inverter Check</span></header><dl><div><dt>الحمل المستمر المطلوب</dt><dd id="inverterContinuousNeed">—</dd></div><div><dt>ذروة الإقلاع المطلوبة</dt><dd id="inverterSurgeNeed">—</dd></div><div><dt>قدرة الموديل المختار</dt><dd id="selectedInverterCapacity">—</dd></div><div><dt>حالة التوافق</dt><dd id="selectedInverterStatus">—</dd></div></dl></article>
+          <article class="detail-card battery-only"><header><h3>بنك البطاريات</h3><span>Battery Bank</span></header><dl><div><dt>التوالي × التوازي</dt><dd id="batteryConfig">—</dd></div><div><dt>سعة البنك</dt><dd id="bankCapacity">—</dd></div><div><dt>الطاقة القابلة للاستخدام</dt><dd id="usableBattery">—</dd></div><div><dt>تيار البطارية التصميمي</dt><dd id="batteryCurrent">—</dd></div></dl></article>
+          <article class="detail-card"><header><h3>الكابلات المقترحة</h3><span>Cables</span></header><dl><div><dt>كابل سلسلة الألواح</dt><dd id="pvStringCable">—</dd></div><div><dt>كابل تجميع الألواح</dt><dd id="pvArrayCable">—</dd></div><div class="battery-only"><dt>كابل البطارية</dt><dd id="batteryCable">—</dd></div><div><dt>كابل خرج AC</dt><dd id="acCable">—</dd></div></dl></article>
+          <article class="detail-card"><header><h3>الحمايات المقترحة</h3><span>Protection</span></header><dl><div><dt>فيوز كل سلسلة PV</dt><dd id="pvStringFuse">—</dd></div><div><dt>قاطع تجميع PV</dt><dd id="pvArrayBreaker">—</dd></div><div class="battery-only"><dt>قاطع البطارية</dt><dd id="batteryBreaker">—</dd></div><div><dt>قاطع خرج AC</dt><dd id="acBreaker">—</dd></div></dl></article>
+        </div>
+
+        <div class="results-actions no-print" aria-label="إجراءات المشروع بعد الحساب">
+          <div class="results-actions-copy">
+            <span class="results-actions-icon" aria-hidden="true">✓</span>
+            <div><strong>اكتملت الحسابات</strong><p>راجع النتائج ثم احفظ المشروع أو اطبع التقرير النهائي.</p></div>
+            <span id="saveStatus" class="save-status">محفوظ محليًا</span>
+          </div>
+          <div class="results-actions-buttons">
+            <button id="projectsBtn" class="btn ghost" type="button"><span aria-hidden="true">▣</span> مشاريعي</button>
+            <button id="saveBtn" class="btn secondary" type="button"><span aria-hidden="true">↓</span> حفظ المشروع</button>
+            <button id="printBtn" class="btn primary" type="button"><span aria-hidden="true">▤</span> طباعة التقرير</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="diagram" class="panel section-card">
+        <div class="section-head">
+          <div><span class="section-number">05</span><div><h2>مخطط التوصيل المبدئي</h2><p>مخطط وظيفي مبسط، وليس مخطط تنفيذ كهربائي.</p></div></div>
+          <span class="pill neutral">يتحدّث تلقائيًا</span>
+        </div>
+        <div class="diagram-wrap">
+          <svg id="systemDiagram" viewBox="0 0 1100 360" role="img" aria-label="مخطط النظام الشمسي">
+            <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="currentColor"/></marker></defs>
+            <g class="diagram-node" transform="translate(30 95)"><rect width="190" height="120" rx="22"/><text x="95" y="42" text-anchor="middle" class="node-icon">☀</text><text x="95" y="76" text-anchor="middle" class="node-title">الألواح الشمسية</text><text id="diagramPanels" x="95" y="100" text-anchor="middle" class="node-value">0 لوح</text></g>
+            <path class="diagram-line" d="M220 155 H325"/>
+            <g class="diagram-node" transform="translate(325 95)"><rect width="190" height="120" rx="22"/><text x="95" y="42" text-anchor="middle" class="node-icon">⌁</text><text x="95" y="76" text-anchor="middle" class="node-title">الإنفرتر الهجين</text><text id="diagramInverter" x="95" y="100" text-anchor="middle" class="node-value">—</text></g>
+            <path class="diagram-line" d="M515 155 H635"/>
+            <g class="diagram-node" transform="translate(635 95)"><rect width="190" height="120" rx="22"/><text x="95" y="42" text-anchor="middle" class="node-icon">⌂</text><text x="95" y="76" text-anchor="middle" class="node-title">لوحة الأحمال</text><text id="diagramLoad" x="95" y="100" text-anchor="middle" class="node-value">0 kW</text></g>
+            <path class="diagram-line grid-path" d="M920 40 V95 H825"/>
+            <g class="diagram-node grid-node" transform="translate(875 5)"><rect width="190" height="70" rx="18"/><text x="95" y="30" text-anchor="middle" class="node-title">الشبكة / المولد</text><text x="95" y="52" text-anchor="middle" class="node-value">مصدر احتياطي</text></g>
+            <path class="diagram-line battery-path" d="M420 215 V275"/>
+            <g class="diagram-node battery-node" transform="translate(325 275)"><rect width="190" height="70" rx="18"/><text x="95" y="30" text-anchor="middle" class="node-title">بنك البطاريات</text><text id="diagramBattery" x="95" y="52" text-anchor="middle" class="node-value">0 kWh</text></g>
+          </svg>
+        </div>
+      </section>
+
+      <section id="costs" class="panel section-card">
+        <div class="section-head">
+          <div><span class="section-number">06</span><div><h2>التكلفة التقديرية</h2><p>يمكن تعديل البنود الإضافية بما يناسب أسعار السوق.</p></div></div>
+          <span id="costCurrencyPill" class="pill neutral">₪</span>
+        </div>
+        <div class="cost-layout">
+          <div class="cost-table-wrap">
+            <table class="cost-table"><thead><tr><th>البند</th><th>الكمية</th><th>سعر الوحدة</th><th>الإجمالي</th></tr></thead><tbody>
+              <tr><td>ألواح شمسية</td><td id="costPanelsQty">0</td><td id="costPanelUnit">0</td><td id="costPanelsTotal">0</td></tr>
+              <tr><td id="costInverterName">إنفرتر</td><td>1</td><td id="costInverterUnit">0</td><td id="costInverterTotal">0</td></tr>
+              <tr class="battery-only"><td id="costBatteryName">بطاريات Deye</td><td id="costBatteriesQty">0</td><td id="costBatteryUnit">0</td><td id="costBatteriesTotal">0</td></tr>
+              <tr><td>هياكل وقواعد</td><td>1</td><td><input id="structureCost" type="number" min="0" step="1" value="1800"></td><td id="structureTotal">0</td></tr>
+              <tr><td>كابلات وحمايات</td><td>1</td><td><input id="electricalCost" type="number" min="0" step="1" value="1600"></td><td id="electricalTotal">0</td></tr>
+              <tr><td>تركيب وتشغيل</td><td>1</td><td><input id="installationCost" type="number" min="0" step="1" value="2200"></td><td id="installationTotal">0</td></tr>
+              <tr><td>تكاليف أخرى</td><td>1</td><td><input id="otherCost" type="number" min="0" step="1" value="0"></td><td id="otherTotal">0</td></tr>
+            </tbody></table>
+          </div>
+          <aside class="cost-summary"><span>إجمالي تكلفة النظام</span><strong id="grandTotal">0</strong><small id="costPerWatt">0 لكل واط شمسي</small><div class="cost-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="48"/><circle id="costRingValue" cx="60" cy="60" r="48"/></svg><div><b id="equipmentShare">0%</b><span>معدات رئيسية</span></div></div></aside>
+        </div>
+      </section>
+
+      <section class="panel report-notes">
+        <h2>ملاحظات وافتراضات التقرير</h2>
+        <ul id="reportNotes"><li>الحسابات أولية وتعتمد على القيم المدخلة.</li></ul>
+      </section>
+
+      <section class="print-only print-legal">
+        <strong>Electrify — Solar Design Studio</strong>
+        <span>تم تطويره بواسطة: محمد زاهدة</span>
+        <span>© 2026 Electrify. جميع الحقوق محفوظة.</span>
+      </section>
+
+      <footer class="page-footer no-print">
+        <div class="footer-identity">
+          <span class="footer-mark" aria-hidden="true">ϟ</span>
+          <div><strong>Electrify</strong><small>Solar Design Studio</small></div>
+        </div>
+        <div class="footer-rights">
+          <p>تم التطوير بواسطة: <strong>محمد زاهدة</strong></p>
+          <p>© 2026 Electrify. جميع الحقوق محفوظة.</p>
+          <small>يُحظر نسخ أو إعادة نشر أو توزيع هذا النظام أو أي جزء منه دون موافقة خطية من صاحب الحقوق.</small>
+        </div>
+        <div class="footer-actions"><button id="exportBtn" class="text-btn" type="button">تصدير المشروع JSON</button><label class="text-btn file-input">استيراد مشروع<input id="importInput" type="file" accept="application/json,.json"></label></div>
+      </footer>
+    </main>
+  </div>
+
+
+  <dialog id="accountDialog" class="dialog account-dialog no-print" aria-labelledby="accountDialogTitle">
+    <div class="dialog-card account-dialog-card">
+      <header>
+        <div><span class="dialog-kicker">ACCOUNT SETTINGS</span><h2 id="accountDialogTitle">إعدادات الحساب</h2><p>حدّث اسمك وصورتك أو غيّر كلمة المرور بأمان.</p></div>
+        <button id="closeAccountDialog" class="icon-btn" type="button" aria-label="إغلاق">×</button>
+      </header>
+      <div class="account-dialog-body">
+        <aside class="account-profile-summary">
+          <img id="settingsAvatar" alt="" class="settings-avatar">
+          <strong id="settingsSummaryName">المستخدم</strong>
+          <small id="settingsSummaryEmail"></small>
+          <span id="settingsProviderBadge" class="provider-badge">حساب Electrify</span>
+        </aside>
+
+        <div class="account-settings-content">
+          <section id="profileSettingsSection" class="settings-section">
+            <div class="settings-section-head"><span aria-hidden="true">◎</span><div><h3>الملف الشخصي</h3><p>يظهر الاسم والصورة في أعلى الموقع والتقارير المستقبلية.</p></div></div>
+            <form id="accountProfileForm" novalidate>
+              <label>الاسم الظاهر
+                <input id="settingsDisplayName" type="text" autocomplete="name" maxlength="60" placeholder="الاسم الكامل" required>
+              </label>
+              <label>البريد الإلكتروني
+                <input id="settingsEmail" type="email" readonly class="readonly-field">
+              </label>
+              <label class="span-two">رابط الصورة الشخصية <small>اختياري — استخدم رابط صورة مباشر يبدأ بـ HTTPS، أو اتركه فارغًا للصورة الافتراضية.</small>
+                <input id="settingsPhotoUrl" type="url" inputmode="url" dir="ltr" placeholder="https://example.com/photo.jpg">
+              </label>
+              <div id="profileSettingsMessage" class="settings-message hidden" role="status"></div>
+              <button id="saveProfileBtn" class="btn primary settings-submit" type="submit">حفظ معلومات الحساب</button>
+            </form>
+          </section>
+
+          <section id="passwordSettingsSection" class="settings-section">
+            <div class="settings-section-head"><span aria-hidden="true">⌾</span><div><h3>الأمان وكلمة المرور</h3><p>تتطلب العملية إدخال كلمة المرور الحالية لحماية الحساب.</p></div></div>
+            <div id="googlePasswordNotice" class="provider-notice hidden">
+              <strong>تم تسجيل الدخول بواسطة Google</strong>
+              <p>كلمة مرور هذا الحساب تُدار من حساب Google، ويمكن تغييرها من إعدادات أمان Google.</p>
+            </div>
+            <form id="accountPasswordForm" novalidate>
+              <label>كلمة المرور الحالية
+                <span class="password-field"><input id="settingsCurrentPassword" type="password" autocomplete="current-password" placeholder="أدخل كلمة المرور الحالية"><button class="settings-toggle-password" type="button" data-target="settingsCurrentPassword">إظهار</button></span>
+              </label>
+              <label>كلمة المرور الجديدة
+                <span class="password-field"><input id="settingsNewPassword" type="password" autocomplete="new-password" minlength="8" placeholder="8 أحرف أو أكثر"><button class="settings-toggle-password" type="button" data-target="settingsNewPassword">إظهار</button></span>
+              </label>
+              <label>تأكيد كلمة المرور الجديدة
+                <span class="password-field"><input id="settingsConfirmPassword" type="password" autocomplete="new-password" minlength="8" placeholder="أعد كتابة كلمة المرور"><button class="settings-toggle-password" type="button" data-target="settingsConfirmPassword">إظهار</button></span>
+              </label>
+              <div id="passwordSettingsMessage" class="settings-message hidden" role="status"></div>
+              <div class="settings-security-actions">
+                <button id="updatePasswordBtn" class="btn secondary settings-submit" type="submit">تغيير كلمة المرور</button>
+                <button id="sendAccountResetBtn" class="btn ghost" type="button">إرسال رابط إعادة تعيين</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+      <footer><button id="accountLogoutBtn" class="btn danger" type="button">تسجيل الخروج من الحساب</button><button id="accountDoneBtn" class="btn ghost" type="button">إغلاق</button></footer>
+    </div>
+  </dialog>
+
+  <dialog id="projectsDialog" class="dialog no-print">
+    <form method="dialog" class="dialog-card">
+      <header><div><h2>مشاريعي المحفوظة</h2><p>تُحفظ المشاريع داخل هذا المتصفح فقط.</p></div><button value="cancel" class="icon-btn" aria-label="إغلاق">×</button></header>
+      <div id="projectsList" class="projects-list"></div>
+      <footer><button value="cancel" class="btn ghost">إغلاق</button></footer>
+    </form>
+  </dialog>
+
+  <dialog id="confirmDialog" class="dialog no-print">
+    <form method="dialog" class="dialog-card small">
+      <header><div><h2 id="confirmTitle">تأكيد</h2><p id="confirmMessage">هل أنت متأكد؟</p></div></header>
+      <footer><button value="cancel" class="btn ghost">إلغاء</button><button id="confirmOk" value="default" class="btn danger">متابعة</button></footer>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast no-print" role="status" aria-live="polite"></div>
+  <script type="module" src="auth.js"></script>
+</body>
+</html>
