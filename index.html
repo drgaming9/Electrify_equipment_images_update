@@ -214,46 +214,73 @@
       </section>
 
       <section id="loads" class="panel section-card">
-        <div class="section-head">
-          <div><span class="section-number">02</span><div><h2>الأجهزة والأحمال</h2><p>أضف كل جهاز وحدد عدد ساعات التشغيل والتزامن ومعامل الإقلاع.</p></div></div>
-          <button id="addLoadBtn" class="btn secondary no-print" type="button">+ إضافة جهاز</button>
-        </div>
-        <div class="table-scroll">
-          <table class="loads-table">
-            <thead><tr><th>الجهاز</th><th>العدد</th><th>القدرة W</th><th>ساعات/يوم</th><th>التزامن % <span class="th-help" title="النسبة المتوقعة من أجهزة الصف التي تعمل مع بقية الأحمال في وقت الذروة">؟</span></th><th>الإقلاع × <span class="th-help" title="معامل الزيادة اللحظية عند بدء المحركات أو الضواغط، وليس استهلاك التشغيل العادي">؟</span></th><th>kWh/يوم</th><th class="no-print">حذف</th></tr></thead>
-            <tbody id="loadsBody"></tbody>
-          </table>
-        </div>
-        <div class="load-factors-guide no-print">
-          <div class="factor-definition">
-            <span class="factor-icon">%</span>
-            <div><strong>التزامن</strong><p>نسبة الحمل المتوقع أن يعمل في نفس لحظة الذروة. للجهاز الواحد المهم استخدم غالبًا 100%، وللمجموعات مثل الإنارة يمكن خفضها حسب الاستخدام الفعلي.</p></div>
-          </div>
-          <div class="factor-definition">
-            <span class="factor-icon">×</span>
-            <div><strong>معامل الإقلاع</strong><p>الزيادة اللحظية عند بدء الضاغط أو المحرك. استخدم بيانات الملصق أو الشركة عند توفرها؛ القيم أدناه افتراضات أولية قابلة للتعديل.</p></div>
-          </div>
-          <div class="factor-presets">
-            <span>قيم ابتدائية مقترحة:</span>
-            <b>LED: 80% / ×1</b>
-            <b>ثلاجة عادية: 100% / ×4</b>
-            <b>تلفاز: 80% / ×1.1</b>
-            <b>غسالة: 50% / ×2.5</b>
-            <b>مكيف عادي: 100% / ×3.5</b>
-            <b>مكيف Inverter: 100% / ×1.5</b>
-          </div>
-        </div>
-        <div class="inline-stats">
-          <article><span>الطاقة اليومية</span><strong id="dailyEnergyInline">0.00 kWh</strong></article>
-          <article><span>الحمل المتصل</span><strong id="connectedLoadInline">0.00 kW</strong></article>
-          <article><span>الحمل المتزامن</span><strong id="peakLoadInline">0.00 kW</strong></article>
-          <article><span>ذروة الإقلاع</span><strong id="surgeLoadInline">0.00 kW</strong></article>
-        </div>
-        <div class="chart-card">
-          <div class="subhead"><div><h3>توزيع الاستهلاك اليومي</h3><p>مقارنة بين الأجهزة الأعلى استهلاكًا.</p></div><span>kWh/يوم</span></div>
-          <div id="energyChart" class="bar-chart"></div>
-        </div>
-      </section>
+  <div class="section-head">
+    <div>
+      <span class="section-number">02</span>
+
+      <div>
+        <h2>الأجهزة والأحمال</h2>
+        <p>أضف كل جهاز وحدد العدد والقدرة وساعات التشغيل اليومية.</p>
+      </div>
+    </div>
+
+    <button
+      id="addLoadBtn"
+      class="btn secondary no-print"
+      type="button"
+    >
+      + إضافة جهاز
+    </button>
+  </div>
+
+  <div class="table-scroll">
+    <table class="loads-table">
+      <thead>
+        <tr>
+          <th>الجهاز</th>
+          <th>العدد</th>
+          <th>القدرة W</th>
+          <th>ساعات/يوم</th>
+          <th>kWh/يوم</th>
+          <th class="no-print">حذف</th>
+        </tr>
+      </thead>
+
+      <tbody id="loadsBody"></tbody>
+    </table>
+  </div>
+
+  <div class="inline-stats loads-summary">
+    <article>
+      <span>الاستهلاك اليومي</span>
+      <strong id="dailyEnergyInline">0.00 kWh</strong>
+    </article>
+
+    <article>
+      <span>الاستهلاك الشهري</span>
+      <strong id="monthlyEnergyInline">0.00 kWh</strong>
+      <small>على أساس 30 يومًا</small>
+    </article>
+
+    <article>
+      <span>إجمالي الحمل المتصل</span>
+      <strong id="connectedLoadInline">0.00 kW</strong>
+    </article>
+  </div>
+
+  <div class="chart-card">
+    <div class="subhead">
+      <div>
+        <h3>توزيع الاستهلاك اليومي</h3>
+        <p>مقارنة بين الأجهزة الأعلى استهلاكًا.</p>
+      </div>
+
+      <span>kWh/يوم</span>
+    </div>
+
+    <div id="energyChart" class="bar-chart"></div>
+  </div>
+</section>
 
       <section id="equipment" class="panel section-card">
         <div class="section-head">
